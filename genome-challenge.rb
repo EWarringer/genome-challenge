@@ -1,22 +1,20 @@
+require "pry"
+
 def connected_genomes(n, numbers)
+  cost = 0
+  (n-1).times do |i|
 
-  count = 0
+    arr = []
+    (n-1).times do |j|
+      arr.push(numbers[j] + numbers[j+1])
+    end
 
-  (n-1).times do
-
-    var = numbers.min
-    numbers.delete_at(numbers.index(var) || i)
-    var += numbers.min
-    numbers.delete_at(numbers.index(numbers.min) || i)
-
-    count += var
-    numbers.push(var)
-
-
+    seq = arr.index(arr.min)
+    numbers.delete_at(seq+1)
+    numbers.delete_at(seq)
+    numbers.insert(seq, arr.min)
+    cost += arr.min
+    n = numbers.length
   end
-
-  print count
-
+  cost
 end
-
-connected_genomes(6, [4, 3, 5, 6, 3, 1])
